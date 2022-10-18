@@ -10,8 +10,8 @@ const dataSeconds = document.querySelector('span[data-seconds]');
 
 let deadLine = null;
 let intervalId = null;
-// btnStart.disabled = true;
-btnStart.setAttribute('disabled', 'disabled');
+btnStart.disabled = true;
+// btnStart.setAttribute('disabled', 'disabled');
 
 const options = {
   enableTime: true,
@@ -31,7 +31,7 @@ const options = {
         closeButton: true,
       });
     } else {
-      btnStart.removeAttribute('disabled');
+      btnStart.disabled = false;
     }
 
     btnStart.addEventListener('click', onBtnStartClick, { once: true });
@@ -40,8 +40,7 @@ const options = {
 
 function onBtnStartClick() {
   Notify.success('Start timer!');
-  btnStart.setAttribute('disabled', 'disabled');
-  selector.setAttribute('disabled', 'disabled');
+  setDisabled(true);
   intervalId = setInterval(convertMs, 1000);
 }
 flatpickr(selector, options);
@@ -69,52 +68,26 @@ function convertMs(diff) {
   const seconds = addLeadingZero(
     Math.floor((((diff % day) % hour) % minute) / second)
   );
-  updateTime;
-  // dataDays.textContent = days;
-  // dataHours.textContent = hours;
-  // dataMinutes.textContent = minutes;
-  // dataSeconds.textContent = seconds;
+  updateTime(days, hours, minutes, seconds);
+  proofSetInterval(days, hours, minutes, seconds);
 
-  if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
-    clearInterval(intervalId);
-    btnStart.removeAttribute('disabled');
-    selector.removeAttribute('disabled');
-  }
   return { days, hours, minutes, seconds };
 }
 
-// convertMs.bind(updateTime)();
-// convertMs.call(updateTime);
-// console.log(convertMs.updateTime);
-// function updateTime() {
-
-// dataDays.textContent = `${days}`,
-// dataHours.textContent = `${hours}`,
-//   dataMinutes.textContent = `${minutes}`,
-//   dataSeconds.textContent = `${seconds}`,
-// }
-
-function updateTime({ days, hours, minutes, seconds }) {
+function updateTime(days, hours, minutes, seconds) {
   dataDays.textContent = days;
   dataHours.textContent = hours;
   dataMinutes.textContent = minutes;
   dataSeconds.textContent = seconds;
 }
 
-//   dataDays.textContent = days;
-// dataHours.textContent = hours;
-// dataMinutes.textContent = minutes;
-// dataSeconds.textContent = seconds;
-// dataDays.textContent = this.days;
-// dataHours.textContent = this.hours;
-// dataMinutes.textContent = this.minutes;
-// dataSeconds.textContent = this.seconds;
-
-// dataDays.textContent = `${this.days}`,
-// dataHours.textContent = `${this.hours}`,
-// dataMinutes.textContent = `${this.minutes}`,
-// dataSeconds.textContent = `${this.seconds}`,
-// }
-// const up = convertMs.bind(updateTime);
-
-// const up = updateTime.bind(convertMs());
+function proofSetInterval(days, hours, minutes, seconds) {
+  if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
+    clearInterval(intervalId);
+    setDisabled(false);
+  }
+}
+function setDisabled(state) {
+  btnStart.disabled = state;
+  selector.disabled = state;
+}
