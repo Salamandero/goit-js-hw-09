@@ -69,10 +69,11 @@ function convertMs(diff) {
   const seconds = addLeadingZero(
     Math.floor((((diff % day) % hour) % minute) / second)
   );
-  dataDays.textContent = days;
-  dataHours.textContent = hours;
-  dataMinutes.textContent = minutes;
-  dataSeconds.textContent = seconds;
+  updateTime;
+  // dataDays.textContent = days;
+  // dataHours.textContent = hours;
+  // dataMinutes.textContent = minutes;
+  // dataSeconds.textContent = seconds;
 
   if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
     clearInterval(intervalId);
@@ -81,3 +82,39 @@ function convertMs(diff) {
   }
   return { days, hours, minutes, seconds };
 }
+
+// convertMs.bind(updateTime)();
+// convertMs.call(updateTime);
+// console.log(convertMs.updateTime);
+// function updateTime() {
+
+// dataDays.textContent = `${days}`,
+// dataHours.textContent = `${hours}`,
+//   dataMinutes.textContent = `${minutes}`,
+//   dataSeconds.textContent = `${seconds}`,
+// }
+
+function updateTime({ days, hours, minutes, seconds }) {
+  dataDays.textContent = days;
+  dataHours.textContent = hours;
+  dataMinutes.textContent = minutes;
+  dataSeconds.textContent = seconds;
+}
+
+//   dataDays.textContent = days;
+// dataHours.textContent = hours;
+// dataMinutes.textContent = minutes;
+// dataSeconds.textContent = seconds;
+// dataDays.textContent = this.days;
+// dataHours.textContent = this.hours;
+// dataMinutes.textContent = this.minutes;
+// dataSeconds.textContent = this.seconds;
+
+// dataDays.textContent = `${this.days}`,
+// dataHours.textContent = `${this.hours}`,
+// dataMinutes.textContent = `${this.minutes}`,
+// dataSeconds.textContent = `${this.seconds}`,
+// }
+// const up = convertMs.bind(updateTime);
+
+// const up = updateTime.bind(convertMs());
